@@ -47,4 +47,18 @@ const jay = 'Jay';
 console.log(`jay instanceof Person`, jay instanceof Person);
 // the properties of the instance are the 'instance properties'
 
-// adding methods to objects
+// prototypes
+// every object that is created by a constructor function will get access to the methods and properties that we define on the constructor's prototype property
+// adding a method to a prototype property
+Person.prototype.calcAge = function () {
+  console.log(2024 - this.birthYear);
+};
+aaron.calcAge()
+// each object has a .__proto__
+console.log(`aaron.__proto`, aaron.__proto__);
+// the Person.prototype is the prototype of all of the objects created with the prototype
+console.log(`aaron.__proto__ === Person.prototype`, aaron.__proto__ === Person.prototype)
+console.log(`Person.prototype.isPrototypeOf(aaron)`, Person.prototype.isPrototypeOf(aaron))
+console.log(`Person.prototype.isPrototypeOf(Person)`, Person.prototype.isPrototypeOf(Person))
+// think of the .prototype as .prototypeOfLinkedObjects maybe
+// step number 3 above creates the proto property and sets the value to the prototype property of the fx being clalled
