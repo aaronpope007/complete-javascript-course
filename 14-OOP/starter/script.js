@@ -35,7 +35,7 @@ const aaron = new Person('Aaron', 1978);
 // const hayt = new Player('Hayt', 150, 'Changeling');
 // console.log('hayt', hayt);
 
-// const matilda = new Person('Matilda', 2017);
+const matilda = new Person('Matilda', 2017);
 // const jacko = new Person('Jacko', 2002);
 // console.log(matilda);
 // console.log(jacko);
@@ -53,12 +53,33 @@ console.log(`jay instanceof Person`, jay instanceof Person);
 Person.prototype.calcAge = function () {
   console.log(2024 - this.birthYear);
 };
-aaron.calcAge()
+aaron.calcAge();
 // each object has a .__proto__
 console.log(`aaron.__proto`, aaron.__proto__);
 // the Person.prototype is the prototype of all of the objects created with the prototype
-console.log(`aaron.__proto__ === Person.prototype`, aaron.__proto__ === Person.prototype)
-console.log(`Person.prototype.isPrototypeOf(aaron)`, Person.prototype.isPrototypeOf(aaron))
-console.log(`Person.prototype.isPrototypeOf(Person)`, Person.prototype.isPrototypeOf(Person))
+console.log(
+  `aaron.__proto__ === Person.prototype`,
+  aaron.__proto__ === Person.prototype
+);
+console.log(
+  `Person.prototype.isPrototypeOf(aaron)`,
+  Person.prototype.isPrototypeOf(aaron)
+);
+console.log(
+  `Person.prototype.isPrototypeOf(Person)`,
+  Person.prototype.isPrototypeOf(Person)
+);
 // think of the .prototype as .prototypeOfLinkedObjects maybe
 // step number 3 above creates the proto property and sets the value to the prototype property of the fx being clalled
+Person.prototype.species = 'Homo Sapiens';
+console.log(aaron.species, matilda.species);
+console.log(aaron.hasOwnProperty('firstName'));
+console.log(aaron.hasOwnProperty('species'));
+
+// prototypal inheritance (also called delegation) and the prototype chain
+// Person.prototype refers to all of the objects created by the constructor
+// the New operator:
+// 1) empty object is created
+// 2) this keyword in constructor funciton call is set to the new object
+// 3) magical step: the new object is linked to the constrctor's prototype property (__proto__ property
+// 4) the new object is returned from the constructor funcion call
