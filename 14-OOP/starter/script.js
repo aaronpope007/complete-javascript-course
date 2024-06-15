@@ -83,3 +83,25 @@ console.log(aaron.hasOwnProperty('species'));
 // 2) this keyword in constructor funciton call is set to the new object
 // 3) magical step: the new object is linked to the constrctor's prototype property (__proto__ property
 // 4) the new object is returned from the constructor funcion call
+
+// Prototypes and prototypal inheritance on built-in objects
+console.log(aaron.__proto__);
+// object.prototype is the top of the proto chain
+console.log(aaron.__proto__.__proto__);
+console.log(aaron.__proto__.__proto__.__proto__);
+console.dir(Person.prototype.constructor);
+
+// prototype of arrays
+const arr = [2, 3, 4, 4, 5, 5, 6, 7, 8, 9, 234];
+console.log(arr.__proto__);
+const arrReversed = arr.toReversed();
+console.log(arrReversed);
+console.log(arr.length);
+console.log(arr.reduce((a, b) => a + b, 0) / arr.length);
+// the prototype property of the constructor is the prototype of all of the objects created by the constructor
+console.log(arr.__proto__ === Array.prototype);
+
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+console.log(arr.unique());
