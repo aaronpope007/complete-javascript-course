@@ -107,3 +107,24 @@ Array.prototype.unique = function () {
 console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
+
+// CODING CHALLENGE #1
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+const bmw = new Car('BMW', 120);
+const mercedes = new Car('Mercedes', 95);
+
+Car.prototype.accelerate = function () {
+  console.log(
+    `${this.make} increases speed to ${(this.speed = this.speed + 10)} km/h`
+  );
+};
+
+Car.prototype.brake = function () {
+  console.log(
+    `${this.make} slows down to ${(this.speed = this.speed - 5)} km/h`
+  );
+};
