@@ -116,15 +116,74 @@ const Car = function (make, speed) {
 
 const bmw = new Car('BMW', 120);
 const mercedes = new Car('Mercedes', 95);
-
 Car.prototype.accelerate = function () {
-  console.log(
-    `${this.make} increases speed to ${(this.speed = this.speed + 10)} km/h`
-  );
+  this.speed += 10;
+  console.log(`${this.make} increases speed to ${this.speed} km/h`);
 };
 
 Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} slows down to ${this.speed} km/h`);
+};
+
+const Monster = function (level, race, damage) {
+  this.level = level;
+  this.race = race;
+  this.damage = damage;
+};
+
+Monster.prototype.enrage = function () {
+  this.damage += 10;
   console.log(
-    `${this.make} slows down to ${(this.speed = this.speed - 5)} km/h`
+    `${this.race} becomes enraged and attacks you for ${this.damage}!!`
   );
 };
+
+Monster.prototype.calm = function () {
+  this.damage -= 10;
+  console.log(
+    `${this.race} has calmed down and now attacks you for ${this.damage}.`
+  );
+};
+
+const kobold = new Monster(5, 'Kobold', 15);
+
+kobold.enrage();
+kobold.enrage();
+kobold.calm();
+
+const Player = function (name, guild, level) {
+  this.name = name;
+  this.guild = guild;
+  this.level = level;
+};
+
+const cognus = new Player('Cognus', 'Necromancer', 15);
+console.info(cognus);
+
+Player.prototype.levelup = function () {
+  this.level += 1;
+  console.log(
+    `Congratulations, ${this.name}! You have leveled up to level ${this.level}`
+  );
+};
+
+cognus.levelup();
+
+// ES6 Classes
+// classes in JS don't work like classes in java or c++. it's just syntatic sugar
+// classes are just functions
+
+// class expression
+// const PersonCl = class {};
+
+// class declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+}
+
+const jessica = new PersonCl('Jessisa', 1996);
+console.info(jessica);
