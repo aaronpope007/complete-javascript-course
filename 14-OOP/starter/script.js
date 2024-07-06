@@ -176,14 +176,67 @@ Car.prototype.brake = function () {
 
 // class expression
 // const PersonCl = class {};
-
 // class declaration
 class PersonCl {
   constructor(firstName, birthYear) {
     this.firstName = firstName;
     this.birthYear = birthYear;
   }
+  // methods will be added to the .prototype property of the class
+  calcAge() {
+    console.log(2024 - this.birthYear);
+  }
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
 }
 
-const jessica = new PersonCl('Jessisa', 1996);
+const jessica = new PersonCl('Jessica', 1996);
 console.info(jessica);
+jessica.calcAge();
+console.log(jessica.__proto__ === PersonCl.prototype);
+
+jessica.greet();
+
+// class MonsterCl {
+//   constructor(race, level) {
+//     this.race = race;
+//     this.level = level;
+//   }
+
+//   levelUp() {
+//     this.level++;
+//     console.log(`${this.race} is now level ${this.level}`);
+//   }
+// }
+
+// const orc = new MonsterCl('Orc', 1);
+// console.log(orc);
+// orc.levelUp();
+
+// 1. Classes are NOT hoisted (function declarations are hoisted so you can use them before they are declared in the code).
+// 2. Classes are first-class citizens, which means we can pass them into functions and return them from functions. that is because classes are a special kind of fx behind the scenes
+// 3. Classes are executed in strict mode
+
+// you can use constructor functions or ES6 classes, it's a matter of preference
+
+// 215. Setters and Getters
+// prepend 'get' to make it a getter
+
+const account = {
+  owner: 'Aaron',
+  movements: [200, 230, 300, 100, 20],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+  // setter methods need exactly one parameter
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+// you don't call the method on a getter, you use it like a property
+console.log(account.latest);
+// to use setter, you don't have to call it, it's like a property and not a method
+account.latest = 999;
+console.log(account.movements);
