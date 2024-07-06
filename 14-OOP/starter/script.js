@@ -126,49 +126,49 @@ Car.prototype.brake = function () {
   console.log(`${this.make} slows down to ${this.speed} km/h`);
 };
 
-const Monster = function (level, race, damage) {
-  this.level = level;
-  this.race = race;
-  this.damage = damage;
-};
+// const Monster = function (level, race, damage) {
+//   this.level = level;
+//   this.race = race;
+//   this.damage = damage;
+// };
 
-Monster.prototype.enrage = function () {
-  this.damage += 10;
-  console.log(
-    `${this.race} becomes enraged and attacks you for ${this.damage}!!`
-  );
-};
+// Monster.prototype.enrage = function () {
+//   this.damage += 10;
+//   console.log(
+//     `${this.race} becomes enraged and attacks you for ${this.damage}!!`
+//   );
+// };
 
-Monster.prototype.calm = function () {
-  this.damage -= 10;
-  console.log(
-    `${this.race} has calmed down and now attacks you for ${this.damage}.`
-  );
-};
+// Monster.prototype.calm = function () {
+//   this.damage -= 10;
+//   console.log(
+//     `${this.race} has calmed down and now attacks you for ${this.damage}.`
+//   );
+// };
 
-const kobold = new Monster(5, 'Kobold', 15);
+// const kobold = new Monster(5, 'Kobold', 15);
 
-kobold.enrage();
-kobold.enrage();
-kobold.calm();
+// kobold.enrage();
+// kobold.enrage();
+// kobold.calm();
 
-const Player = function (name, guild, level) {
-  this.name = name;
-  this.guild = guild;
-  this.level = level;
-};
+// const Player = function (name, level) {
+//   this.name = name;
+//   this.level = level;
+// };
 
-const cognus = new Player('Cognus', 'Necromancer', 15);
-console.info(cognus);
+// const jinkai = new Player('Jinkai', 1);
+// console.info(jinkai);
 
-Player.prototype.levelup = function () {
-  this.level += 1;
-  console.log(
-    `Congratulations, ${this.name}! You have leveled up to level ${this.level}`
-  );
-};
+// Player.prototype.levelUp = function () {
+//   this.level++;
+//   console.log(`${this.name} has increased power to level ${this.level}`);
+// };
 
-cognus.levelup();
+// jinkai.levelUp();
+// jinkai.levelUp();
+// jinkai.levelUp();
+// jinkai.levelUp();
 
 // ES6 Classes
 // classes in JS don't work like classes in java or c++. it's just syntatic sugar
