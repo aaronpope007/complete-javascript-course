@@ -178,8 +178,8 @@ Car.prototype.brake = function () {
 // const PersonCl = class {};
 // class declaration
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
   // methods will be added to the .prototype property of the class
@@ -189,9 +189,24 @@ class PersonCl {
   greet() {
     console.log(`Hey ${this.firstName}`);
   }
+
+  get age() {
+    return 2024 - this.birthYear;
+  }
+  // create a setter to check if the fullName property is a full name
+  // important pattern to understand when setting a property that already exists
+  set fullName(name) {
+    console.log(name);
+    name.includes(' ')
+      ? (this._fullName = name)
+      : alert(`${name} is not a full name!`);
+  }
+  get fullName() {
+    return this._fullName;
+  }
 }
 
-const jessica = new PersonCl('Jessica', 1996);
+const jessica = new PersonCl('Jessica Davis', 1996);
 console.info(jessica);
 jessica.calcAge();
 console.log(jessica.__proto__ === PersonCl.prototype);
@@ -223,6 +238,8 @@ jessica.greet();
 // 215. Setters and Getters
 // prepend 'get' to make it a getter
 
+// const walter = new PersonCl('Walter', 1904);
+
 const account = {
   owner: 'Aaron',
   movements: [200, 230, 300, 100, 20],
@@ -239,4 +256,9 @@ const account = {
 console.log(account.latest);
 // to use setter, you don't have to call it, it's like a property and not a method
 account.latest = 999;
+account.latest = 799;
+account.latest = 9;
 console.log(account.movements);
+
+console.log(jessica.age);
+// setters and getters can be useful for data validation
