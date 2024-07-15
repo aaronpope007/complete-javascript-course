@@ -183,6 +183,7 @@ class PersonCl {
     this.birthYear = birthYear;
   }
   // methods will be added to the .prototype property of the class
+  // these are also called instance methods
   calcAge() {
     console.log(2024 - this.birthYear);
   }
@@ -203,6 +204,11 @@ class PersonCl {
   }
   get fullName() {
     return this._fullName;
+  }
+
+  // use static keyword to add static method
+  static hey() {
+    console.log(`${this.fullName} says 'Hey there!'`);
   }
 }
 
@@ -262,3 +268,50 @@ console.log(account.movements);
 
 console.log(jessica.age);
 // setters and getters can be useful for data validation
+// setters and getters can be nice for validation when creating a new object
+
+// static methods
+// the Array.from() method is a good example of a static method
+// the .from method is attached to the array structure
+// . from method is attached to the Array constructor
+// the .from method is in the array namespace
+
+// 3rd way to implement prototypal inheritance or also called delegation
+
+// 217. Object.create
+// no prototype properties on object.create
+// no new operator
+// manually set the prototype of an obj to any other object
+// recreate the person class
+
+const PersonProto = {
+  calcAge() {
+    console.log(2034 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+// we pass in the prototype object and that will be the prototype
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();
+
+const popedog = Object.create(PersonProto);
+popedog.name = 'Aaron';
+popedog.birthYear = '1978';
+popedog.calcAge();
+popedog.myNickname = 'aaron';
+console.log(popedog);
+
+const melissa = Object.create(PersonProto);
+melissa.init('Melissa', 1977);
+melissa.calcAge();
+console.info(melissa);
+
+// 218 - coding challenge 2
