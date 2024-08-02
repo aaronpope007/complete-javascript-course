@@ -296,11 +296,11 @@ const PersonProto = {
 };
 
 // we pass in the prototype object and that will be the prototype
-const steven = Object.create(PersonProto);
-console.log(steven);
-steven.name = 'Steven';
-steven.birthYear = 2002;
-steven.calcAge();
+// const steven = Object.create(PersonProto);
+// console.log(steven);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
 
 const popedog = Object.create(PersonProto);
 popedog.name = 'Aaron';
@@ -503,3 +503,21 @@ marthaJones.introduce();
 marthaJones.calcAge();
 
 // 222. object.create inheritance between classes
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  // init is using the person prototype to get the values of the parameters
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.fullName} and I study ${this.course}.`);
+};
+// PersonProto is the parent prototype of jay. jay's prototype is StudentProto
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();
+jay.calcAge();
+// 223. Another class example
