@@ -521,3 +521,76 @@ jay.init('Jay', 2010, 'Computer Science');
 jay.introduce();
 jay.calcAge();
 // 223. Another class example
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this._pin = pin;
+    // protected property
+    this._movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}!`);
+  }
+  // THIS is the public interface of our object below
+
+  getMovements() {
+    return this._movements;
+  }
+
+  deposit(val) {
+    this._movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-Math.abs(val));
+  }
+
+  balance() {
+    return this._movements.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+  }
+
+  _approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan Approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Aaron', 'USD', 1111);
+
+// instead of this below, make methods to do this
+// acc1.movements.push(250);
+// acc1.movements.push(-100);
+
+acc1.deposit(100);
+acc1.withdraw(-20);
+acc1.requestLoan(1000);
+
+console.log(acc1);
+console.log(acc1.balance());
+console.log(acc1.getMovements());
+
+// 224 Encapsulation: Protected properties and methods
+// Encapsulation means to keep some properties and methods private inside the class so they are not accessable from outside the class
+// the rest of the methods are exposed as a public interface
+// 2 reasons we need encapsulaiton and data privacy
+// 1 to prevent code from outside of a class to accidentally manipulate our data from inside the class
+// 2 when we expose only a small interface of a few public methods, we can change the internal methods with more confidence, because we know the extrnal code doesnt rely on the private methods
+
+// JS classes don't support real privacy and encapsulation
+// we will fake it using a convention for now
+
+// 225 Encapsulation: private class fields and methods
+// class fields will be in future JS releases
+// in java and c++ properties are usually called fields
+// with this new proposal, js is moving away from the idea that classes are syntactic sugar
+// because with these new class features, classes start to have abilities that we didn't have befoer with constructor fx
