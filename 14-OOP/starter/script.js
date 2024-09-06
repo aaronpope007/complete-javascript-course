@@ -540,10 +540,12 @@ class Account {
 
   deposit(val) {
     this._movements.push(val);
+    return this;
   }
 
   withdraw(val) {
     this.deposit(-Math.abs(val));
+    return this;
   }
 
   balance() {
@@ -558,9 +560,10 @@ class Account {
   }
 
   requestLoan(val) {
-    if (this.approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan Approved`);
+      return this;
     }
   }
 }
@@ -594,3 +597,165 @@ console.log(acc1.getMovements());
 // in java and c++ properties are usually called fields
 // with this new proposal, js is moving away from the idea that classes are syntactic sugar
 // because with these new class features, classes start to have abilities that we didn't have befoer with constructor fx
+// classes start to have abilities we didnt use to have.
+
+// PUBLIC FIELDS
+// PRIVATE FIELDS
+// PUBLIC METHODS
+// PRIVATE METHODS
+// there's also the static versions of these four, so eight in total
+
+// a field is a property that can be on all instances
+
+class Accounts {
+  // 1 - PUBLIC FIELDS
+  // how we define public fields (instances)
+  // referenceable by 'this' keyword
+  locale = navigator.language;
+
+  // 2 - PRIVATE FIELDS
+  // properties are truly not accessible from the outside
+  #movements = [];
+  // this is needed to set it for private field
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+    // protected property
+    // this._movements = [];
+    // this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}!`);
+  }
+  // THIS is the public interface of our object below
+
+  // 3 public methods - these below are public methods
+
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-Math.abs(val));
+  }
+
+  balance() {
+    return this._movements.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+  }
+
+  // private methods are useful to hide the implementation details from the outside
+  // browsers don't support this yet
+  #approveLoan(val) {
+    return true;
+  }
+}
+
+// 226 Chaining methods
+// we already know how to do this with filter, map, and reduce and chain them together. you can do this with our class methods as well
+acc1.deposit(300).deposit(200).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log('acc1.getMovements()', acc1.getMovements());
+
+// 227 ES6 classes summary
+// review, terminology:
+// define class: class Studnet extends Person, student is child class of the parent class person, and it sets up the inheritence. extends automatically sets up the prototype chain for us
+// public field: university = 'string';
+// private fields: almost the same, but they are not accessible outside of the class. these are good for data privacy and encapsulation
+// static public fields, available only on the class
+// use static keyword to make any field static as well
+// constructor method is automatically called by the new operator when creating a new object/instance of the class
+// constructor method is mandatory in parent class
+// call to parent (super) class (necessary with extend). needs to happen before accessing 'this'
+// instance property - available on created object
+// public method
+// private field/methods
+// getter method - get a value out of an object by simply writing a property instead of method. e.g. student.testscore
+// setter method - we can define the test score by setting it to some value instead of calling a test score method. if there is the same property, then when creating the setter, use the _ in front of the name
+// new operator
+
+// things to remember:
+// classes are just syntatic sugar over constructor functions.
+// classes are not hoisted and are first class citizens
+// the class body is always executed in strict mode
+
+// 228 Coding Challenge #4
+// 1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+// 2. Make the 'charge' property private;
+// 3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chining!
+
+// DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+// GOOD LUCK 😀
+//
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
+  }
+
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+
+class EVCl extends CarCl {
+  #charge;
+
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }`
+    );
+    return this;
+  }
+}
+
+const rivian = new EVCl('Rivian', 120, 23);
+console.log(rivian);
+// console.log(rivian.#charge);
+rivian
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery(50)
+  .accelerate();
+// child class inherits getters and setters from parent class
+console.log(rivian.speedUS);
