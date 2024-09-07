@@ -10,3 +10,19 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+
+if (navigator.geolocation)
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      const { latitude, longitude, accuracy } = position.coords;
+      //   const { longitude } = position.coords;
+      //   const { accuracy } = position.coords;
+      console.log('latitude is ', latitude);
+      console.log('longitude is ', longitude);
+      console.log('accuracy is within x meters: ', accuracy);
+      console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+    },
+    function () {
+      alert('Could not get your position');
+    }
+  );
