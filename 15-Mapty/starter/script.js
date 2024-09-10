@@ -17,8 +17,6 @@ if (navigator.geolocation)
   navigator.geolocation.getCurrentPosition(
     function (position) {
       const { latitude, longitude, accuracy } = position.coords;
-      //   const { longitude } = position.coords;
-      //   const { accuracy } = position.coords;
       console.log('latitude is ', latitude);
       console.log('longitude is ', longitude);
       console.log('accuracy is within x meters: ', accuracy);
