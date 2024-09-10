@@ -51,7 +51,7 @@ form.addEventListener('submit', function (e) {
   inputDistance.value =
     inputDuration.value =
     inputCadence.value =
-    inputCadence.value =
+    inputElevation.value =
       '';
 
   // DISPLAY MARKER
