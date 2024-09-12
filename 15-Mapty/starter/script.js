@@ -11,6 +11,18 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+class Workout {
+  date = new Date();
+  id = 
+
+
+  constructor(coords, distance, duration) {
+    this.coords = coords;
+    this.distance = distance; // in km
+    this.duration = duration; // in minutes
+  }
+}
+
 class App {
   #map;
   #mapEvent;
