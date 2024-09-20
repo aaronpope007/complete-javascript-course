@@ -117,6 +117,7 @@ class App {
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
     const { lat, lng } = this.#mapEvent.latlng;
+    let workout;
 
     // values are 'running' and 'cycling'
 
@@ -130,7 +131,7 @@ class App {
       )
         return alert('Input must be a positive integer!');
 
-      const workout = new Running([lat, lng], distance, duration, cadence);
+      workout = new Running([lat, lng], distance, duration, cadence);
     }
 
     // if the workout is cycling, create the cycling object
@@ -142,10 +143,13 @@ class App {
         !allPositive(distance, duration)
       )
         return alert('Input must be a positive integer!');
+
+      workout = new Running([lat, lng], distance, duration, elevation);
     }
 
     // add the new object to the workout array
-
+    this.#workouts.push(workout);
+    console.log(workout);
     // render the workout on the map as a marker
 
     console.log('lat', lat);
