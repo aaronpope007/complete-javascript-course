@@ -15,6 +15,7 @@ class Workout {
 }
 
 class Running extends Workout {
+  type = 'running';
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -29,6 +30,7 @@ class Running extends Workout {
 }
 
 class Cycling extends Workout {
+  type = 'cycling';
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
@@ -60,11 +62,9 @@ class App {
   #mapEvent;
   #workouts = [];
   constructor() {
-    this.workouts = [];
+    this._getPosition();
     // console.log('hello from the app constructor');
-
     form.addEventListener('submit', this._newWorkout.bind(this));
-
     inputType.addEventListener('change', this._toggleElevationField);
   }
 
@@ -144,29 +144,16 @@ class App {
       )
         return alert('Input must be a positive integer!');
 
-      workout = new Running([lat, lng], distance, duration, elevation);
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
-
-    // add the new object to the workout array
     this.#workouts.push(workout);
     console.log(workout);
-    // render the workout on the map as a marker
 
-    console.log('lat', lat);
-    console.log('lng', lng);
-    L.marker([lat, lng])
-      .addTo(this.#map)
-      .bindPopup(
-        L.popup({
-          maxWidth: 250,
-          minWidth: 100,
-          autoClose: false,
-          closeOnClick: false,
-          className: 'running-popup',
-        })
-      )
-      .setPopupContent('Workout')
-      .openPopup();
+    // add the new object to the workout array
+
+    // render the workout on the map as a marker
+    this.renderWorkoutMarker(workout);
+
     // render hte workout on the list
 
     // hide the form and clear the input fields
@@ -177,6 +164,22 @@ class App {
       inputCadence.value =
       inputElevation.value =
         '';
+  }
+
+  renderWorkoutMarker(workout) {
+    L.marker(workout.coords)
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: `${workout.type}-popup`,
+        })
+      )
+      .setPopupContent('workout')
+      .openPopup();
   }
 }
 
