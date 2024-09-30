@@ -178,6 +178,7 @@ class App {
     this._renderWorkout(workout);
 
     // hide the form and clear the input fields
+    this._hideForm();
 
     // clear input fields:
     inputDistance.value =
@@ -251,6 +252,7 @@ class App {
       `;
 
     form.insertAdjacentHTML('afterend', html);
+    console.log(html);
   }
 }
 
