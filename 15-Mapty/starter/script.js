@@ -3,6 +3,7 @@
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
+  clicks = 0;
 
   constructor(coords, distance, duration) {
     this.coords = coords; // [lat, lng]
@@ -17,6 +18,10 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.click++;
   }
 }
 
@@ -259,7 +264,7 @@ class App {
   }
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
-    if (!workoutEl) return;
+    if (!workoutEl) return; // guard clause
     const workout = this.#workouts.find(
       work => work.id === workoutEl.dataset.id
     );
@@ -270,6 +275,9 @@ class App {
         duration: 1,
       },
     });
+
+    // using public interface
+    workout.click();
   }
 }
 
