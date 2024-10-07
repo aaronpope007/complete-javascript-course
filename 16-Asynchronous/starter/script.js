@@ -58,3 +58,18 @@ getCountryData('germany');
 // regex(120%+ quant) - 21:chaos~1:each
 // -----------------------
 // IGN: @VeryOriginalNameExile
+
+// const request = new XMLHttpRequest();
+// request.open('GET', `https://restcountries.com/v2/name/${country}`);
+// request.send();
+const request = fetch('https://restcountries.com/v2/name/portugal');
+console.log('request', request);
+
+// 2 advantages of promises
+// no longer need to rely on events and callback functions to deliver asynchronous results
+// with promises, we can chain promises for a sequence of asynchronous operations instead of nesting
+// promises are an ES6 feature, came in 2015
+// promises have a lifecycle
+// pending -> async -> settled (settled: fulfilled, settled: rejected)
+// a promise is only fulfilled once
+// we consume a promise when we already have a promise
