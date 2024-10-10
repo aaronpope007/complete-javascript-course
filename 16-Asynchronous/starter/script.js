@@ -89,9 +89,37 @@ console.log('request', request);
 // };
 
 const getCountryData = function (country) {
+  // country
   fetch(`https://restcountries.com/v2/name/${country}`)
     .then(response => response.json())
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbor = data[0].borders[0];
+      if (!neighbor) return;
+      // country 2
+      return fetch(`https://restcountries.com/v2/name/${neighbor}`);
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data, 'neighbour'));
 };
 
-getCountryData('usa');
+getCountryData('portugal');
+
+// 254 chaining promises
+// chain 2 sequential json calls
+
+// WTS Softcore
+// -----------------------
+// x72 T17 Ziggurat - 0.9:divine~1:/each
+// x10 T17 Abomination - 0.8:divine~1:/each
+// x3 T17 Santuary - 0.9:divine~1:/each
+// x19 T17 Fortress - 1:divine~1:/each
+
+// -----------------------
+// 8-Mod T16 Toxic Sewer (600+)
+// random - 10:chaos~1:each
+// regex - 14:chaos~1:each
+// regex(110%+ quant/pack size) - 18:chaos~1:each
+// regex(120%+ quant) - 21:chaos~1:each
+// -----------------------
+// IGN: @VeryOriginalNameExile
