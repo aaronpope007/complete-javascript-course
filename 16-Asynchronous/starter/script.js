@@ -64,8 +64,7 @@ const renderCountry = function (data, className = '') {
 // const request = new XMLHttpRequest();
 // request.open('GET', `https://restcountries.com/v2/name/${country}`);
 // request.send();
-const request = fetch('https://restcountries.com/v2/name/portugal');
-console.log('request', request);
+// const request = fetch('https://restcountries.com/v2/name/portugal');
 
 // 2 advantages of promises
 // no longer need to rely on events and callback functions to deliver asynchronous results
@@ -89,21 +88,23 @@ console.log('request', request);
 // };
 
 const getCountryData = function (country) {
-  // country
+  // country 1
   fetch(`https://restcountries.com/v2/name/${country}`)
     .then(response => response.json())
     .then(data => {
       renderCountry(data[0]);
       const neighbor = data[0].borders[0];
+      console.log('data', data);
+      console.log('neighbor', neighbor);
       if (!neighbor) return;
       // country 2
-      return fetch(`https://restcountries.com/v2/name/${neighbor}`);
+      return fetch(`https://restcountries.com/v2/alpha/${neighbor}`);
     })
     .then(response => response.json())
-    .then(data => renderCountry(data, 'neighbour'));
+    .then(data => renderCountry(data, 'neighbor'));
 };
 
-getCountryData('portugal');
+getCountryData('mexico');
 
 // 254 chaining promises
 // chain 2 sequential json calls
