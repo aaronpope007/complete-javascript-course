@@ -6,6 +6,11 @@ const correctAPI = 'https://countries-api-836d.onrender.com/countries/';
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
+const renderErr = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  //   countriesContainer.style.opacity = 1;
+};
+
 const renderCountry = function (data, className = '') {
   const html = `
     <article class="country ${className}">
@@ -22,7 +27,7 @@ const renderCountry = function (data, className = '') {
     </article>
     `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+  //   countriesContainer.style.opacity = 1;
 };
 
 ///////////////////////////////////////
@@ -101,26 +106,18 @@ const getCountryData = function (country) {
       return fetch(`https://restcountries.com/v2/alpha/${neighbor}`);
     })
     .then(response => response.json())
-    .then(data => renderCountry(data, 'neighbor'));
+    .then(data => renderCountry(data, 'neighbor'))
+    .catch(err => {
+      console.error(`${err}🛑 🛑 🛑 !ERROR! 🛑 🛑 🛑`);
+      renderErr(
+        ` 🛑 🛑 🛑 Something went wrong!  🛑 🛑 🛑 ${err.message}. TRY AGAIN!`
+      );
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
 
-getCountryData('mexico');
-
-// 254 chaining promises
-// chain 2 sequential json calls
-
-// WTS Softcore
-// -----------------------
-// x72 T17 Ziggurat - 0.9:divine~1:/each
-// x10 T17 Abomination - 0.8:divine~1:/each
-// x3 T17 Santuary - 0.9:divine~1:/each
-// x19 T17 Fortress - 1:divine~1:/each
-
-// -----------------------
-// 8-Mod T16 Toxic Sewer (600+)
-// random - 10:chaos~1:each
-// regex - 14:chaos~1:each
-// regex(110%+ quant/pack size) - 18:chaos~1:each
-// regex(120%+ quant) - 21:chaos~1:each
-// -----------------------
-// IGN: @VeryOriginalNameExile
+btn.addEventListener('click', function () {
+  getCountryData('asdf');
+});
