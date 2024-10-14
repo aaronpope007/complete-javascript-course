@@ -231,3 +231,12 @@ GOOD LUCK 😀
 
 // no multitasking in javascript
 // java can execute multiple pieces of code at a time
+// Event loop practice
+// console.log('test start');
+// setTimeout(() => console.log('0 sec timer), 0'));
+// Promise.resolve('Resolved Promise 1').then(res => console.log(res));
+// Promise.resolve('resolved promise 2').then(res => {
+//   for (let i = 0; i < 1000000000; i++) {}
+//   console.log(res);
+// });
+// console.log('test end');
