@@ -196,33 +196,38 @@ TEST COORDINATES 2: -33.933, 18.474
 
 GOOD LUCK 😀
 */
-const whereAmI = function (lat, long) {
-  fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&format=json&apiKey=89293b7710ef4dc3af9d8b70d3e327bc
-  `)
-    .then(res => {
-      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      console.log('data obj', data);
-      console.log(
-        `You are in ${data.results[0].city}, ${data.results[0].country}`
-      );
-      const country = data.results[0].country;
-      return fetch(`https://restcountries.com/v2/name/${country}`);
-      //   const countryQuery = data.results[0].country;
-      //   getCountryData(countryQuery);
-    })
-    .then(res => {
-      if (!res.ok) throw new Error(`Country not found ${res.status}`);
-      return res.json();
-    })
-    .then(data => renderCountry(data[0]))
-    .catch(err => {
-      console.error(`${err.message} 😬 !!! error !!!`);
-    })
-    .finally(() => {
-      countriesContainer.style.opacity = 1;
-    });
-};
+// const whereAmI = function (lat, long) {
+//   fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&format=json&apiKey=89293b7710ef4dc3af9d8b70d3e327bc
+//   `)
+//     .then(res => {
+//       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+//       return res.json();
+//     })
+//     .then(data => {
+//       console.log('data obj', data);
+//       console.log(
+//         `You are in ${data.results[0].city}, ${data.results[0].country}`
+//       );
+//       const country = data.results[0].country;
+//       return fetch(`https://restcountries.com/v2/name/${country}`);
+//       //   const countryQuery = data.results[0].country;
+//       //   getCountryData(countryQuery);
+//     })
+//     .then(res => {
+//       if (!res.ok) throw new Error(`Country not found ${res.status}`);
+//       return res.json();
+//     })
+//     .then(data => renderCountry(data[0]))
+//     .catch(err => {
+//       console.error(`${err.message} 😬 !!! error !!!`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
 // whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
+
+// no multitasking in javascript
+// java can execute multiple pieces of code at a time
