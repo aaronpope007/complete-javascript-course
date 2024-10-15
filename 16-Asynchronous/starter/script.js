@@ -240,3 +240,19 @@ GOOD LUCK 😀
 //   console.log(res);
 // });
 // console.log('test end');
+// use the promise constructor
+// promise consturctor tacts one argument, an executer function
+const lotteryPromise = new Promise(function (resolve, reject) {
+  // the function will contain the asynchronous behavior that will eventually produce a resolve value, the future value of the promise
+  console.log('lottery draw is happening 🔮');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      // calling the resolve method makes the promise fulfilled
+      resolve('You WIN 💰');
+    } else {
+      reject(new Error('You lose 🫤'));
+    }
+  }, 2000);
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
