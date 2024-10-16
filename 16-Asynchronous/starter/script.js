@@ -242,17 +242,45 @@ GOOD LUCK 😀
 // console.log('test end');
 // use the promise constructor
 // promise consturctor tacts one argument, an executer function
-const lotteryPromise = new Promise(function (resolve, reject) {
-  // the function will contain the asynchronous behavior that will eventually produce a resolve value, the future value of the promise
-  console.log('lottery draw is happening 🔮');
-  setTimeout(function () {
-    if (Math.random() >= 0.5) {
-      // calling the resolve method makes the promise fulfilled
-      resolve('You WIN 💰');
-    } else {
-      reject(new Error('You lose 🫤'));
-    }
-  }, 2000);
-});
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   // the function will contain the asynchronous behavior that will eventually produce a resolve value, the future value of the promise
+//   console.log('lottery draw is happening 🔮');
+//   setTimeout(function () {
+//     if (Math.random() >= 0.5) {
+//       // calling the resolve method makes the promise fulfilled
+//       resolve('You WIN 💰');
+//     } else {
+//       reject(new Error('You lose 🫤'));
+//     }
+//   }, 2000);
+// });
 
-lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+
+// Promisifying setTimeout
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+
+// const waitArrow = seconds =>
+//   new Promise(resolve => setTimeout(resolve, seconds * 1000));
+
+// wait(2)
+//   .then(() => {
+//     console.log('I waited 2 seconds');
+//     return wait(1);
+//   })
+//   .then(() => console.log('I waited one more second'));
+
+// create fulfilled or rejected promise immediately
+Promise.resolve(
+  'This is the resolved value when chaining Promise.resolve.'
+).then(x => console.log(x));
+
+Promise.reject(
+  new Error(
+    'Problem! This is immediately rejecting a promise using console.error'
+  )
+).catch(x => console.error(x));
