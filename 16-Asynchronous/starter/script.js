@@ -27,7 +27,8 @@ const renderCountry = function (data, className = '') {
     </article>
     `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  //   countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
+  console.log('data from renderCountry', data);
 };
 
 ///////////////////////////////////////
@@ -285,52 +286,52 @@ GOOD LUCK 😀
 //   )
 // ).catch(x => console.error(x));
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
-    // navigator.geolocation.getCurrentPosition(
-    //   position => resolve(position),
-    //   err => reject(err)
-    // );
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     // navigator.geolocation.getCurrentPosition(
+//     //   position => resolve(position),
+//     //   err => reject(err)
+//     // );
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
 // getPosition().then(pos => console.log(pos));
 
-const whereAmItwo = function () {
-  getPosition()
-    .then(pos => {
-      console.log(pos.coords);
-      const { latitude: lat, longitude: long } = pos.coords;
-      return fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&format=json&apiKey=89293b7710ef4dc3af9d8b70d3e327bc
-        `);
-    })
-    .then(res => {
-      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      console.log('data obj', data);
-      console.log(
-        `You are in ${data.results[0].city}, ${data.results[0].country}`
-      );
-      const country = data.results[0].country;
-      return fetch(`https://restcountries.com/v2/name/${country}`);
-      //   const countryQuery = data.results[0].country;
-      //   getCountryData(countryQuery);
-    })
-    .then(res => {
-      if (!res.ok) throw new Error(`Country not found ${res.status}`);
-      return res.json();
-    })
-    .then(data => renderCountry(data[0]))
-    .catch(err => {
-      console.error(`${err.message} 😬 !!! error !!!`);
-    })
-    .finally(() => {
-      countriesContainer.style.opacity = 1;
-    });
-};
-btn.addEventListener('click', whereAmItwo);
+// const whereAmItwo = function () {
+//   getPosition()
+//     .then(pos => {
+//       console.log(pos.coords);
+//       const { latitude: lat, longitude: long } = pos.coords;
+//       return fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&format=json&apiKey=89293b7710ef4dc3af9d8b70d3e327bc
+//         `);
+//     })
+//     .then(res => {
+//       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+//       return res.json();
+//     })
+//     .then(data => {
+//       console.log('data obj', data);
+//       console.log(
+//         `You are in ${data.results[0].city}, ${data.results[0].country}`
+//       );
+//       const country = data.results[0].country;
+//       return fetch(`https://restcountries.com/v2/name/${country}`);
+//       //   const countryQuery = data.results[0].country;
+//       //   getCountryData(countryQuery);
+//     })
+//     .then(res => {
+//       if (!res.ok) throw new Error(`Country not found ${res.status}`);
+//       return res.json();
+//     })
+//     .then(data => renderCountry(data[0]))
+//     .catch(err => {
+//       console.error(`${err.message} 😬 !!! error !!!`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
+// btn.addEventListener('click', whereAmItwo);
 
 ///////////////////////////////////////
 // Coding Challenge #2
@@ -357,47 +358,84 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 GOOD LUCK 😀
 */
 
-const wait = function (seconds) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
-  });
-};
-const imgContainer = document.querySelector('.images');
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+// const imgContainer = document.querySelector('.images');
 
-const createImage = function (imgPath) {
+// const createImage = function (imgPath) {
+//   return new Promise(function (resolve, reject) {
+//     const img = document.createElement('img');
+//     img.src = imgPath;
+
+//     img.addEventListener('load', function () {
+//       imgContainer.append(img);
+//       resolve(img);
+//     });
+
+//     img.addEventListener('error', function () {
+//       reject(new Error('Image not found'));
+//     });
+//   });
+// };
+
+// let currentImg;
+
+// createImage('img/img-1.jpg')
+//   .then(img => {
+//     currentImg = img;
+//     console.log('img1 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//     return createImage('img/img-2.jpg');
+//   })
+//   .then(img => {
+//     currentImg = img;
+//     console.log('img1 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//   })
+//   .catch(err => console.error(err));
+
+const getPosition = function () {
   return new Promise(function (resolve, reject) {
-    const img = document.createElement('img');
-    img.src = imgPath;
-
-    img.addEventListener('load', function () {
-      imgContainer.append(img);
-      resolve(img);
-    });
-
-    img.addEventListener('error', function () {
-      reject(new Error('Image not found'));
-    });
+    navigator.geolocation.getCurrentPosition(
+      position => resolve(position),
+      err => reject(err)
+    );
   });
 };
 
-let currentImg;
+const whereAmI = async function () {
+  // geolocation
+  const pos = await getPosition();
+  const { latitude: lat, longitude: long } = pos.coords;
 
-createImage('img/img-1.jpg')
-  .then(img => {
-    currentImg = img;
-    console.log('img1 loaded');
-    return wait(2);
-  })
-  .then(() => {
-    currentImg.style.display = 'none';
-    return createImage('img/img-2.jpg');
-  })
-  .then(img => {
-    currentImg = img;
-    console.log('img1 loaded');
-    return wait(2);
-  })
-  .then(() => {
-    currentImg.style.display = 'none';
-  })
-  .catch(err => console.error(err));
+  // reverse geocoding
+  const resGeo = await fetch(
+    `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&format=json&apiKey=89293b7710ef4dc3af9d8b70d3e327bc`
+  );
+  const dataGeo = await resGeo.json();
+  console.log('dataGeo:', dataGeo); // Log to check the structure
+
+  // Ensure you're accessing the correct path to the country property
+  const country = dataGeo.results?.[0]?.country; // Adjust based on actual data structure
+  if (!country) {
+    console.error('Country not found in reverse geocoding response');
+    return;
+  }
+
+  // country data
+  const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+  const data = await res.json();
+  console.log('data', data);
+  renderCountry(data[1]);
+};
+
+whereAmI();
