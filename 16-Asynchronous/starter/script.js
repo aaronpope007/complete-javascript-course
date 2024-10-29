@@ -446,14 +446,6 @@ const whereAmI = async function () {
   //   console.log('data', data);
   renderCountry(data[1]);
 };
-
+console.log('1: will get location');
 whereAmI();
-
-// TRY CATCH
-// try {
-//   let y = 1;
-//   const x = 2;
-//   x = 3;
-// } catch (err) {
-//   alert(err.message);
-// }
+console.log('2: finished getting location');
