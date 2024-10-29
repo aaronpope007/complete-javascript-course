@@ -405,9 +405,16 @@ GOOD LUCK 😀
 
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
+    console.log('entered getPosition');
     navigator.geolocation.getCurrentPosition(
-      position => resolve(position),
-      err => reject(err)
+      position => {
+        console.log('Position resolved:', position);
+        resolve(position);
+      },
+      err => {
+        console.error('Geolocation error:', err);
+        reject(err);
+      }
     );
   });
 };
@@ -416,11 +423,12 @@ const whereAmI = async function () {
   // geolocation
   const pos = await getPosition();
   const { latitude: lat, longitude: long } = pos.coords;
-
   // reverse geocoding
   const resGeo = await fetch(
     `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&format=json&apiKey=89293b7710ef4dc3af9d8b70d3e327bc`
   );
+  if (!resGeo.ok) throw new Error('Problem getting location data');
+
   const dataGeo = await resGeo.json();
   console.log('dataGeo:', dataGeo); // Log to check the structure
 
@@ -433,9 +441,19 @@ const whereAmI = async function () {
 
   // country data
   const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+  if (!res.ok) throw new Error('Problem getting country');
   const data = await res.json();
-  console.log('data', data);
+  //   console.log('data', data);
   renderCountry(data[1]);
 };
 
 whereAmI();
+
+// TRY CATCH
+// try {
+//   let y = 1;
+//   const x = 2;
+//   x = 3;
+// } catch (err) {
+//   alert(err.message);
+// }
