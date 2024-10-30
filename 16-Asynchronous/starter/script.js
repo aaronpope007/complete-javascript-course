@@ -443,7 +443,7 @@ const whereAmI = async () => {
   renderCountry(data[1]);
   return `The capital is ${data[1].capital}`;
 };
-console.log('1: will get location');
+// console.log('1: will get location');
 // whereAmI()
 //   .then(capital => console.log('capital', capital))
 //   .catch(err => console.error(`${err.message}`));
@@ -459,22 +459,65 @@ console.log('1: will get location');
 //   console.log('finished getting location');
 // })();
 
-const get3Countries = async (c1, c2, c3) => {
-  try {
-    // const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
-    // const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
-    // const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
+// const get3Countries = async (c1, c2, c3) => {
+//   try {
+//     // const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
+//     // const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
+//     // const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
 
-    const data = await Promise.all([
-      getJSON(`https://restcountries.com/v2/name/${c1}`),
-      getJSON(`https://restcountries.com/v2/name/${c2}`),
-      getJSON(`https://restcountries.com/v2/name/${c3}`),
-    ]);
+//     const data = await Promise.all([
+//       getJSON(`https://restcountries.com/v2/name/${c1}`),
+//       getJSON(`https://restcountries.com/v2/name/${c2}`),
+//       getJSON(`https://restcountries.com/v2/name/${c3}`),
+//     ]);
 
-    console.log(data);
-    console.log(data.map(d => d[0].capital));
-  } catch (err) {
-    console.error(err);
-  }
-};
-get3Countries('portugal', 'canada', 'tanzania');
+//     console.log(data);
+//     console.log(data.map(d => d[0].capital));
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+// get3Countries('portugal', 'canada', 'tanzania');
+
+// Promise.race. receives array of promises and returns a promise. this is settled as soon as one of the input promises settles. the first settled promise wins the race
+
+// (async () => {
+//   const res = await Promise.race([
+//     getJSON('https://restcountries.com/v2/name/egypt'),
+//     getJSON('https://restcountries.com/v2/name/italy'),
+//     getJSON('https://restcountries.com/v2/name/mexico'),
+//   ]);
+//   console.log(res);
+// })();
+
+// const timeout = sec =>
+//   new Promise((_, reject) => {
+//     setTimeout(() => {
+//       reject(new Error('request too too long'));
+//     }, sec);
+//   });
+// // Promise.race
+// Promise.race([getJSON('https://restcountries.com/v2/name/usa'), timeout(130)])
+//   .then(res => console.log(res[0]))
+//   .catch(err => console.error(err));
+
+// Promise.allSettled
+// Promise.allSettled([
+//   Promise.resolve('success'),
+//   Promise.resolve('success'),
+//   Promise.resolve('success'),
+//   Promise.reject('ERROR'),
+//   Promise.resolve('success'),
+//   Promise.resolve('success'),
+// ]).then(res => console.log(res));
+// // Promise.any
+// Promise.any([
+//   Promise.resolve('success'),
+//   Promise.resolve('success'),
+//   Promise.resolve('success'),
+//   Promise.reject('ERROR'),
+//   Promise.resolve('success'),
+//   Promise.resolve('success'),
+// ]).then(res => console.log(res));
+
+// CODING CHALLENGE 3
