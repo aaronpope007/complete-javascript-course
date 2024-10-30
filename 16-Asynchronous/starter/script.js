@@ -1,17 +1,15 @@
-'use strict';
-
 // https://countries-api-836d.onrender.com/countries/
 const correctAPI = 'https://countries-api-836d.onrender.com/countries/';
 
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
-const renderErr = function (msg) {
+const renderErr = msg => {
   countriesContainer.insertAdjacentText('beforeend', msg);
   //   countriesContainer.style.opacity = 1;
 };
 
-const renderCountry = function (data, className = '') {
+const renderCountry = (data, className = '') => {
   const html = `
     <article class="country ${className}">
       <img class="country__img" src="${data.flag}" />
@@ -93,12 +91,11 @@ const renderCountry = function (data, className = '') {
 //     });
 // };
 
-const getJSON = function (url, errorMsg = 'Something went wrong') {
-  return fetch(url).then(response => {
+const getJSON = (url, errorMsg = 'Something went wrong') =>
+  fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
     return response.json();
   });
-};
 
 // const getCountryData = function (country) {
 //   // country 1
@@ -403,8 +400,8 @@ GOOD LUCK 😀
 //   })
 //   .catch(err => console.error(err));
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
+const getPosition = () =>
+  new Promise((resolve, reject) => {
     console.log('entered getPosition');
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -417,9 +414,8 @@ const getPosition = function () {
       }
     );
   });
-};
 
-const whereAmI = async function () {
+const whereAmI = async () => {
   // geolocation
   const pos = await getPosition();
   const { latitude: lat, longitude: long } = pos.coords;
