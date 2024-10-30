@@ -1,9 +1,7 @@
-'use strict';
-
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
-const renderCountry = function (data, className = '') {
+const renderCountry = (data, className = '') => {
   const html = `
   <article class="country ${className}">
     <img class="country__img" src="${data.flag}" />
@@ -22,18 +20,17 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
-const renderError = function (msg) {
+const renderError = msg => {
   countriesContainer.insertAdjacentText('beforeend', msg);
   countriesContainer.style.opacity = 1;
 };
 
-const getJSON = function (url, errorMsg = 'Something went wrong') {
-  return fetch(url).then(response => {
+const getJSON = (url, errorMsg = 'Something went wrong') =>
+  fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
 
     return response.json();
   });
-};
 
 /*
 ///////////////////////////////////////

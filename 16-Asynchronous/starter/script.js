@@ -441,7 +441,40 @@ const whereAmI = async () => {
   const data = await res.json();
   //   console.log('data', data);
   renderCountry(data[1]);
+  return `The capital is ${data[1].capital}`;
 };
 console.log('1: will get location');
-whereAmI();
-console.log('2: finished getting location');
+// whereAmI()
+//   .then(capital => console.log('capital', capital))
+//   .catch(err => console.error(`${err.message}`));
+// console.log('2: finished getting location');
+
+// (async () => {
+//   try {
+//     const capital = await whereAmI();
+//     console.log('capital', capital);
+//   } catch (err) {
+//     console.error(`${err.message}`);
+//   }
+//   console.log('finished getting location');
+// })();
+
+const get3Countries = async (c1, c2, c3) => {
+  try {
+    // const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
+    // const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
+    // const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
+
+    const data = await Promise.all([
+      getJSON(`https://restcountries.com/v2/name/${c1}`),
+      getJSON(`https://restcountries.com/v2/name/${c2}`),
+      getJSON(`https://restcountries.com/v2/name/${c3}`),
+    ]);
+
+    console.log(data);
+    console.log(data.map(d => d[0].capital));
+  } catch (err) {
+    console.error(err);
+  }
+};
+get3Countries('portugal', 'canada', 'tanzania');
