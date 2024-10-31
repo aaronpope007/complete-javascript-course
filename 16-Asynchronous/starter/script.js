@@ -558,4 +558,22 @@ const loadNPause = async () => {
     console.error(err);
   }
 };
-loadNPause();
+// loadNPause();
+
+// part 2
+const loadAll = async imgArr => {
+  try {
+    const imgs = imgArr.map(async img => await createImage(img));
+
+    const imgsEl = await Promise.all(imgs);
+
+    // imgsEl.forEach(img => img.classList.add('parallel'));
+
+    for (const img of imgsEl) {
+      img.classList.add('parallel');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);
