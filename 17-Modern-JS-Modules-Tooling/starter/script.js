@@ -47,28 +47,43 @@
 // top level await will block the entire module. it can be helpful, but we must use it with great care as well
 
 // ife = immediately invoked function
-const ShoppingCart2 = (() => {
-  const cart = [];
-  const shippingCost = 10;
-  const totalPrice = 237;
-  const totalQuantity = 23;
+// const ShoppingCart2 = (() => {
+//   const cart = [];
+//   const shippingCost = 10;
+//   const totalPrice = 237;
+//   const totalQuantity = 23;
 
-  const addToCart = (product, quantity) => {
-    cart.push({ product, quantity });
-    console.log(`${quantity} ${product} was added to cart`);
-  };
+//   const addToCart = (product, quantity) => {
+//     cart.push({ product, quantity });
+//     console.log(`${quantity} ${product} was added to cart`);
+//   };
 
-  const orderStock = (product, quantity) => {
-    cart.push({ product, quantity });
-    console.log(`${quantity} ${product} was added to cart`);
-  };
+//   const orderStock = (product, quantity) => {
+//     cart.push({ product, quantity });
+//     console.log(`${quantity} ${product} was added to cart`);
+//   };
 
-  return {
-    addToCart,
-    cart,
-    totalPrice,
-    totalQuantity,
-  };
-})();
-ShoppingCart2.addToCart('apple', 4);
-ShoppingCart2.addToCart('pizza', 2);
+//   return {
+//     addToCart,
+//     cart,
+//     totalPrice,
+//     totalQuantity,
+//   };
+// })();
+// ShoppingCart2.addToCart('apple', 4);
+// ShoppingCart2.addToCart('pizza', 2);
+
+// // common JS stuff for node
+// // export
+// export.addToCart = (product, quantity) => {
+//         cart.push({ product, quantity });
+//         console.log(`${quantity} ${product} was added to cart`);
+//       };
+
+//       const orderStock = (product, quantity) => {
+//         cart.push({ product, quantity });
+//         console.log(`${quantity} ${product} was added to cart`);
+//       };
+
+//       // import
+//       const {addToCart} = require('./shoppingCart.js')
